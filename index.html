@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 
 <head>
-    <title>App Name a Coding Challange</title>
+    <title>Fibonacci Sequence a Coding Challange</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -26,17 +26,20 @@
 
     <main class="mb-5">
         <div class="container mt-5">
-            <h1>App Name</h1>
+            <h1>Fibonacci Sequence</h1>
             <p class="lead">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora doloribus numquam nesciunt maiores
-                repellendus dolorum. Esse voluptatem odit est iusto alias, vel quaerat laboriosam nobis.
+                This application takes a whole number input from the user, validates it, and then generates and displays
+                a visually
+                formatted sequence of Fibonacci numbers up to the specified input, making it easy for users to explore
+                and visualize
+                this mathematical sequence.
             </p>
             <ul class="checklist">
-                <li><i class="bi bi-check2-square"></i>Lorem ipsum dolor sit amet.</li>
-                <li><i class="bi bi-check2-square"></i>Lorem ipsum dolor sit amet.</li>
-                <li><i class="bi bi-check2-square"></i>Lorem ipsum dolor sit amet.</li>
-                <li><i class="bi bi-check2-square"></i>Lorem ipsum dolor sit amet.</li>
-                <li><i class="bi bi-check2-square"></i>Lorem ipsum dolor sit amet.</li>
+                <li><i class="bi bi-check2-square"></i> User Input Handling</li>
+                <li><i class="bi bi-check2-square"></i> Input Validation</li>
+                <li><i class="bi bi-check2-square"></i> Modular Code Structure</li>
+                <li><i class="bi bi-check2-square"></i> Descriptive Function Names</li>
+                <li><i class="bi bi-check2-square"></i> Clear and Concise Comments</li>
             </ul>
         </div>
         <div class="container mt-5">
@@ -47,25 +50,12 @@
                         <!-- Input -->
                         <form>
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="number-input" value="1">
-                                <label for="number-input">Number Input</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="string-Input" value="Example text">
-                                <label for="string-Input">String Input</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="select-input">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                <label for="floatingSelect">Works with selects</label>
+                                <input type="number" class="form-control" id="user-input" value="15" max="50" min="1">
+                                <label for="user-input">Sequence Length</label>
                             </div>
                             <div class="text-end">
-                                <button class="btn btn-outline-primary btn-lg" onclick="getValues()"
-                                    type="button">Controller Function Trigger</button>
+                                <button class="btn btn-outline-primary btn-lg" onclick="handleUserInput()"
+                                    type="button">Generate Fibonacci</button>
                             </div>
                         </form>
                     </div>
@@ -73,17 +63,17 @@
                 <div class="col-sm-8 order-first order-sm-0">
                     <p class="lead">Instructions</p>
                     <ol>
-                        <li>Lorem ipsum dolor sit amet.</li>
-                        <li>Lorem ipsum dolor sit amet.</li>
-                        <li>Lorem ipsum dolor sit amet.</li>
-                        <li>Lorem ipsum dolor sit amet.</li>
-                        <li>Lorem ipsum dolor sit amet.</li>
+                        <li>Enter a whole number between 1 and 50.</li>
+                        <li>Click the "Generate" button.</li>
+                        <li>View the formatted Fibonacci sequence.</li>
+                        <li>Explore the sequence up to your input.</li>
+                        <li>Enjoy visualizing the Fibonacci numbers!</li>
                     </ol>
                 </div>
                 <div class="col-12">
                     <div id="resultsContainer" class="bg-body-secondary p-4 rounded d-none"
                         style="max-height: 500px; overflow: auto;">
-                        <div id="results" class="text-center">
+                        <div id="results" class="d-flex flex-wrap">
                             <!-- Results -->
                         </div>
                     </div>
@@ -96,34 +86,61 @@
             <div class="card bg-body-secondary mt-4 mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <button onclick="expandThumnail('firstFunctionThumnail', 'firstFunctionContent')" type="button"
-                            data-bs-toggle="modal" data-bs-target="#firstFunctionModal" id="firstFunctionThumnail"
-                            class="p-2 w-100 thumbnailCode hover-zoom bg-body-secondary">
+                        <button onclick="expandThumnail('handleUserInputThumnail', 'handleUserInputContent')"
+                            type="button" data-bs-toggle="modal" data-bs-target="#handleUserInputModal"
+                            id="handleUserInputThumnail" class="p-2 w-100 thumbnailCode hover-zoom bg-body-secondary">
                             <pre class="line-numbers rounded">
-                                <code class="language-JS"></code>
+                                <code class="language-JS">
+                                    // Controller
+function handleUserInput(){
+
+    // Get user input from DOM
+    let userInputValue = document.getElementById('user-input').value;
+
+    // Turn into integer
+    let userInput = parseInt(userInputValue);
+    
+    // Validate input
+    if (!Number.isInteger(userInput) || userInput > 50 || userInput &lt; 1) {
+        
+        // Display error message
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter an integer smaller than 50",
+        });
+    }
+    
+    // Get fibonacci sequence
+    let fibonacciArray = generateFibonacci(userInput);
+
+    // Display result
+    displayResults(fibonacciArray);
+}
+                                </code>
                             </pre>
                         </button>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body h-100">
-                            <h5 class="card-title">Controller (firstFunction)</h5>
+                            <h5 class="card-title">Controller (handleUserInput)</h5>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quidem assumenda libero,
-                                cum mollitia animi fugit porro aut amet dignissimos, sed quia similique dolor vitae?
-                                Sint eum dolore atque voluptate!
+                                Takes the user's entered number, ensures it's valid, and triggers the generation and
+                                display of a Fibonacci sequence.
                             </p>
                             <!-- Modal -->
-                            <div class="modal fade modal-lg" id="firstFunctionModal" tabindex="-1"
-                                aria-labelledby="firstFunctionModalLabel" aria-hidden="true">
+                            <div class="modal fade modal-lg" id="handleUserInputModal" tabindex="-1"
+                                aria-labelledby="handleUserInputModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="firstFunctionModalLabel">firstFunction()
+                                            <h1 class="modal-title fs-5" id="handleUserInputModalLabel">
+                                                handleUserInput()
                                             </h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <div id="firstFunctionContent" class="modal-body fullCode">
+                                        <div id="handleUserInputContent" class="modal-body fullCode">
                                             <pre class="line-numbers"></pre>
                                         </div>
                                         <div class="modal-footer">
@@ -141,35 +158,75 @@
             <div class="card bg-body-secondary mt-4 mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <button onclick="expandThumnail('secondFunctionThumnail', 'secondFunctionContent')"
-                            type="button" data-bs-toggle="modal" data-bs-target="#secondFunctionModal"
-                            id="secondFunctionThumnail" class="p-2 w-100 thumbnailCode hover-zoom  bg-body-secondary">
+                        <button onclick="expandThumnail('generateFibonacciThumnail', 'generateFibonacciContent')"
+                            type="button" data-bs-toggle="modal" data-bs-target="#generateFibonacciModal"
+                            id="generateFibonacciThumnail"
+                            class="p-2 w-100 thumbnailCode hover-zoom  bg-body-secondary">
                             <pre class="line-numbers rounded">
-                                <code class="language-JS"></code>
+                                <code class="language-JS">
+                                    // Logic
+function generateFibonacci(maxCount){
+
+    // Empty array to store results into
+    let fibonacciArray = [];
+
+    // Use loop to get Fibonacci Sequence
+    for (let i = 0; i &lt; maxCount; i++) {
+        
+        // Get last two entries of sequence
+        let lastEntry = fibonacciArray[fibonacciArray.length - 1];
+        if (lastEntry == null) {
+            
+            // Initialize first number in sequence
+            fibonacciArray.push(0);
+            continue;
+        }
+
+        let secondLastEntry = fibonacciArray[fibonacciArray.length - 2];
+        if (secondLastEntry == null) {
+
+            // Initialize second number in sequence
+            fibonacciArray.push(1);
+            continue;
+        }
+        
+        // Calculate next Fibonacci number
+        let newEntry = lastEntry + secondLastEntry;
+        
+        // Append to Fibonacci array
+        fibonacciArray.push(newEntry);
+    }
+
+    // Return results
+    return fibonacciArray;
+    
+}
+
+                                </code>
                             </pre>
                         </button>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body h-100">
-                            <h5 class="card-title">Logic (secondFunction)</h5>
+                            <h5 class="card-title">Logic (generateFibonacci)</h5>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, fugit, quasi
-                                mollitia voluptate culpa quibusdam delectus quam nemo magnam error saepe similique
-                                reprehenderit totam a architecto aperiam. Magnam, eaque voluptate!
+                                Generates a sequence of Fibonacci numbers up to the specified count, contributing to the
+                                overall sequence to be
+                                displayed.
                             </p>
                             <!-- Modal -->
-                            <div class="modal fade modal-lg" id="secondFunctionModal" tabindex="-1"
-                                aria-labelledby="secondFunctionModalLabel" aria-hidden="true">
+                            <div class="modal fade modal-lg" id="generateFibonacciModal" tabindex="-1"
+                                aria-labelledby="generateFibonacciModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="secondFunctionModalLabel">
-                                                secondFunction()
+                                            <h1 class="modal-title fs-5" id="generateFibonacciModalLabel">
+                                                generateFibonacci()
                                             </h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <div id="secondFunctionContent" class="modal-body fullCode">
+                                        <div id="generateFibonacciContent" class="modal-body fullCode">
                                             <pre class="line-numbers"></pre>
                                         </div>
                                         <div class="modal-footer">
@@ -187,34 +244,60 @@
             <div class="card bg-body-secondary mt-4 mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <button onclick="expandThumnail('thirdFunctionThumnail', 'thirdFunctionContent')" type="button"
-                            data-bs-toggle="modal" data-bs-target="#thirdFunctionModal" id="thirdFunctionThumnail"
-                            class="p-2 w-100 thumbnailCode hover-zoom bg-body-secondary">
+                        <button onclick="expandThumnail('displayResultsThumnail', 'displayResultsContent')"
+                            type="button" data-bs-toggle="modal" data-bs-target="#displayResultsModal"
+                            id="displayResultsThumnail" class="p-2 w-100 thumbnailCode hover-zoom bg-body-secondary">
                             <pre class="line-numbers rounded">
-                                <code class="language-JS"></code>
+                                <code class="language-JS">
+                                    // View
+function displayResults(fibonacciArray){
+
+    // String to display results
+    let results = '';
+    
+    // Loop over each number, format it, and add to string
+    fibonacciArray.forEach(number => {
+        
+        // Format number with commas
+        const formattedNumber = new Intl.NumberFormat().format(number);
+
+        // Create formatted result HTML
+        let result = 
+        `&lt;div class="bg-body text-center p-3 m-1 rounded border border-dark" style="min-width: 5rem;">${formattedNumber}&lt;/div>`;
+
+        // Append result to string
+        results += result;
+
+    });
+
+    // Display to user
+    document.getElementById('results').innerHTML = results;
+    document.getElementById('resultsContainer').classList.remove('d-none');
+}
+                                </code>
                             </pre>
                         </button>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body h-100">
-                            <h5 class="card-title">View (thirdFunction)</h5>
+                            <h5 class="card-title">View (displayResults)</h5>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia rerum consequatur ad
-                                reiciendis! Odio assumenda tempore consequuntur autem quia. Laboriosam voluptatem id
-                                sunt ad esse asperiores maiores harum a repellat?
+                                Formats and presents the generated Fibonacci sequence in a visually appealing way for
+                                the user to easily explore and
+                                understand.
                             </p>
                             <!-- Modal -->
-                            <div class="modal fade modal-lg" id="thirdFunctionModal" tabindex="-1"
-                                aria-labelledby="thirdFunctionModalLabel" aria-hidden="true">
+                            <div class="modal fade modal-lg" id="displayResultsModal" tabindex="-1"
+                                aria-labelledby="displayResultsModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="thirdFunctionModalLabel">thirdFunction()
+                                            <h1 class="modal-title fs-5" id="displayResultsModalLabel">displayResults()
                                             </h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <div id="thirdFunctionContent" class="modal-body fullCode">
+                                        <div id="displayResultsContent" class="modal-body fullCode">
                                             <pre class="line-numbers"></pre>
                                         </div>
                                         <div class="modal-footer">
